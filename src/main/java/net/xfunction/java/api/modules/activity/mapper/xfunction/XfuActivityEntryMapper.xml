@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.xfunction.java.api.modules.activity.mapper.xfunction.XfuActivityEntryMapper">
+  <resultMap id="BaseResultMap" type="net.xfunction.java.api.modules.activity.model.xfunction.XfuActivityEntry">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="xfu_entry_id" jdbcType="BIGINT" property="xfuEntryId" />
+    <result column="xfu_user_id" jdbcType="BIGINT" property="xfuUserId" />
+    <result column="xfu_activity_id" jdbcType="BIGINT" property="xfuActivityId" />
+    <result column="xfu_ticket_id" jdbcType="BIGINT" property="xfuTicketId" />
+    <result column="xfu_entry_create" jdbcType="TIMESTAMP" property="xfuEntryCreate" />
+    <result column="xfu_checkin" jdbcType="TIMESTAMP" property="xfuCheckin" />
+    <result column="xfu_checkin_code" jdbcType="VARCHAR" property="xfuCheckinCode" />
+    <result column="xfu_entry_content" jdbcType="LONGVARCHAR" property="xfuEntryContent" />
+    <result column="xfu_cancel" jdbcType="TIMESTAMP" property="xfuCancel" />
+  </resultMap>
+  
+  <resultMap id="MyEntriesResultMap" type="net.xfunction.java.api.modules.activity.model.xfunction.XfuActivityEntry" extends ="BaseResultMap">
+    <association property="activity" column="xfu_activity_id" select="net.xfunction.java.api.modules.activity.mapper.xfunction.XfuActivityMapper.selectActivityForAsso">
+    </association> 
+    <association property="ticket" column="xfu_ticket_id" select="net.xfunction.java.api.modules.activity.mapper.xfunction.XfuActivityTicketMapper.selectTicketForAsso">
+    </association>
+  </resultMap>
+  
+  <!-- 其中的 if test entryId 是用取取消前的确认是当前用户的 -->
+  <select id="selectMyEntries" resultMap="MyEntriesResultMap" parameterType="net.xfunction.java.api.modules.activity.pojo.myEntry.MyEntryQuery">
+  select * from xfu_activity_entry where xfu_user_id = #{userId} 
+  <if test="entryId != null">
+  	and xfu_entry_id = #{entryId}
+  </if>
+  order by xfu_entry_id desc
+  </select>
+  
+  <resultMap id="ExtendResultMap" type="net.xfunction.java.api.modules.activity.model.xfunction.XfuActivityEntry" extends ="BaseResultMap">
+    <association property="user" column="xfu_user_id" select="net.xfunction.java.api.modules.user.mapper.xfunction.XfuUserMapper.selectForUser">
+    </association> 
+  </resultMap>
+  
+  <select id="selectActivityEntries" resultMap="ExtendResultMap" parameterType="net.xfunction.java.api.modules.activity.pojo.activityEntry.ActivityEntryQuery">
+  select * from xfu_activity_entry where xfu_activity_id = #{activityId} 
+  <if test="tickets != null">
+  	and xfu_ticket_id in 
+  	
+  	<foreach collection="tickets" item="id" index="index" open="(" close=")" separator=",">
+  		#{id}
+  	</foreach>
+  
+  </if>
+  
+  <if test="ticketId != null">
+  	and xfu_ticket_id = #{ticketId}
+  </if>
+  <if test="checkin != null and checkin == true">
+  	and xfu_checkin is not null
+  </if>
+  <if test="checkin != null and checkin == false">
+  	and xfu_checkin is  null
+  </if>
+  <if test="cancel != null and cancel == true">
+  	and xfu_cancel is not null
+  </if>
+  <if test="cancel != null and cancel == false">
+  	and xfu_cancel is  null
+  </if>
+  <if test="queryStr != null and queryStr != ''">
+  	and xfu_entry_content like '%${queryStr}%'
+  </if>
+  
+  order by xfu_entry_id desc
+  </select>
+  
+</mapper>

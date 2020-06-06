@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.xfunction.java.api.modules.activity.mapper.xfunction.XfuActivityMapper">
+  <resultMap id="BaseResultMap" type="net.xfunction.java.api.modules.activity.model.xfunction.XfuActivity">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="xfu_activity_id" jdbcType="BIGINT" property="xfuActivityId" />
+    <result column="xfu_user_id" jdbcType="BIGINT" property="xfuUserId" />
+    <result column="xfu_activity_title" jdbcType="VARCHAR" property="xfuActivityTitle" />
+    <result column="xfu_activity_pic" jdbcType="VARCHAR" property="xfuActivityPic" />
+    <result column="xfu_activity_start" jdbcType="TIMESTAMP" property="xfuActivityStart" />
+    <result column="xfu_activity_end" jdbcType="TIMESTAMP" property="xfuActivityEnd" />
+    <result column="xfu_entry_start" jdbcType="TIMESTAMP" property="xfuEntryStart" />
+    <result column="xfu_entry_end" jdbcType="TIMESTAMP" property="xfuEntryEnd" />
+    <result column="xfu_form_id" jdbcType="BIGINT" property="xfuFormId" />
+    <result column="xfu_activity_area" jdbcType="VARCHAR" property="xfuActivityArea" />
+    <result column="xfu_activity_address" jdbcType="VARCHAR" property="xfuActivityAddress" />
+    <result column="xfu_activity_create" jdbcType="TIMESTAMP" property="xfuActivityCreate" />
+    <result column="xfu_activity_update" jdbcType="TIMESTAMP" property="xfuActivityUpdate" />
+    <result column="xfu_activity_tags" jdbcType="VARCHAR" property="xfuActivityTags" />
+    <result column="xfu_activity_order_dict" jdbcType="INTEGER" property="xfuActivityOrderDict" />
+    <result column="xfu_activity_apply_dict" jdbcType="VARCHAR" property="xfuActivityApplyDict" />
+    <result column="xfu_entry_visit" jdbcType="INTEGER" property="xfuEntryVisit" />
+    <result column="xfu_activity_content" jdbcType="LONGVARCHAR" property="xfuActivityContent" />
+    <result column="xfu_activity_token" jdbcType="VARCHAR" property="xfuActivityToken" />
+    <result column="xfu_lottery_settings" jdbcType="LONGVARCHAR" property="xfuLotterySettings" />
+    <result column="xfu_wall_settings" jdbcType="LONGVARCHAR" property="xfuWallSettings" />
+    <result column="xfu_is_ad" jdbcType="BIT" property="xfuIsAd" />
+  </resultMap>
+  
+  
+  <resultMap id="myActivityList" type="net.xfunction.java.api.modules.activity.model.xfunction.XfuActivity"  extends="BaseResultMap">
+  	<association property="xfuActivityTemp" column="xfu_activity_id" 
+    select="net.xfunction.java.api.modules.activity.mapper.xfunction.XfuActivityTempMapper.selectActivityTempForAsso"></association>
+  	<association property="tickets" column="xfu_activity_id" 
+    select="net.xfunction.java.api.modules.activity.mapper.xfunction.XfuActivityTicketMapper.selectOKByActivityId"></association>
+  </resultMap>
+  <select id="selectMyActivityList" resultMap="myActivityList" parameterType="net.xfunction.java.api.modules.activity.pojo.myActivityList.MyActivityListQuery">
+  	select *
+  	 from  xfu_activity 
+  		where xfu_user_id = #{userId}
+  		<if test="activityOrderDict != null and activityOrderDict !='' "><!-- $ 请注意数据库中是int型 -->
+  			and xfu_activity_order_dict = ${activityOrderDict}
+  		</if>
+  		<if test="activityApplyDict != null and activityApplyDict !='' "><!-- # 请注意数据库中是varchar型 -->
+  			and xfu_activity_apply_dict = #{activityApplyDict}
+  		</if>
+  		<if test="showExpired != null and showExpired">
+  			and 0 >= DATEDIFF(now(),xfu_activity_end) 
+  		</if>
+  		
+  		order by xfu_activity_end desc
+  </select>
+  
+  
+  <resultMap id="publicActivity" type="net.xfunction.java.api.modules.activity.model.xfunction.XfuActivity"  extends="BaseResultMap">
+  <association property="tickets" column="xfu_activity_id" 
+    select="net.xfunction.java.api.modules.activity.mapper.xfunction.XfuActivityTicketMapper.selectOKByActivityId"></association>
+  	<association property="sponsor" column="xfu_user_id" 
+    select="net.xfunction.java.api.modules.activity.mapper.xfunction.XfuActivitySponsorMapper.selectByUserId"></association>
+    <association property="form" column="xfu_form_id" 
+    select="net.xfunction.java.api.modules.activity.mapper.xfunction.XfuActivityFormMapper.selectByFormId"></association>
+  </resultMap>
+  <select id="selectPublicActivity" resultMap="publicActivity" parameterType="net.xfunction.java.api.modules.activity.pojo.publicActivity.PublicActivityQuery">
+  	select *
+  	 from xfu_activity 
+  	 where  xfu_activity_id = #{activityId} 
+  </select>
+  
+  
+  <resultMap id="publicActivityList" type="net.xfunction.java.api.modules.activity.model.xfunction.XfuActivity"  extends="BaseResultMap">
+  	<association property="sponsor" column="xfu_user_id" 
+    select="net.xfunction.java.api.modules.activity.mapper.xfunction.XfuActivitySponsorMapper.selectByUserId"></association>
+  </resultMap>
+  <select id="selectPublicActivityList" resultMap="publicActivityList" parameterType="net.xfunction.java.api.modules.activity.pojo.publicActivityList.PublicActivityListQuery">
+  	select *
+  	 from xfu_activity 
+  	 where  xfu_activity_end > now() and xfu_activity_order_dict > 0 
+  	 order by xfu_activity_end
+  </select>
+  
+  <select id="selectSponsorActivityList" resultMap="BaseResultMap" parameterType="net.xfunction.java.api.modules.activity.pojo.publicActivityList.PublicActivityListQuery">
+  	select *
+  	 from xfu_activity 
+  	 where xfu_user_id = #{sponsorId}  and xfu_activity_order_dict > 0 
+  	 order by xfu_activity_end
+  </select>
+  
+  
+   <resultMap id="myActivity" type="net.xfunction.java.api.modules.activity.model.xfunction.XfuActivity"  extends="BaseResultMap">
+ 	 <association property="tickets" column="xfu_activity_id" 
+    select="net.xfunction.java.api.modules.activity.mapper.xfunction.XfuActivityTicketMapper.selectAllByActivityId"></association>
+    <association property="form" column="xfu_form_id" 
+    select="net.xfunction.java.api.modules.activity.mapper.xfunction.XfuActivityFormMapper.selectByFormId"></association>
+  </resultMap>
+  <select id="selectMyActivity" resultMap="myActivity" parameterType="Long">
+  	select *
+  	 from xfu_activity 
+  	 where  xfu_activity_id = #{activityId}
+  </select>
+  
+  <update id="updateActivityVisit" parameterType="net.xfunction.java.api.modules.activity.pojo.publicActivity.PublicActivityQuery">
+  	update xfu_activity
+  	set xfu_entry_visit = xfu_entry_visit + 1
+  	where xfu_activity_id = #{activityId}
+  </update>
+  
+  
+    <select id="selectActivityForAsso" resultMap="BaseResultMap" parameterType="Long">
+  	 select * from xfu_activity where xfu_activity_id = #{xfuActivityId}
+  </select>
+</mapper>
+
+
+

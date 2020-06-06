@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.xfunction.java.api.modules.activity.mapper.xfunction.XfuActivityTicketMapper">
+  <resultMap id="BaseResultMap" type="net.xfunction.java.api.modules.activity.model.xfunction.XfuActivityTicket">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="xfu_ticket_id" jdbcType="BIGINT" property="xfuTicketId" />
+    <result column="xfu_activity_id" jdbcType="BIGINT" property="xfuActivityId" />
+    <result column="xfu_ticket_name" jdbcType="VARCHAR" property="xfuTicketName" />
+    <result column="xfu_ticket_sum" jdbcType="INTEGER" property="xfuTicketSum" />
+    <result column="xfu_ticket_remark" jdbcType="VARCHAR" property="xfuTicketRemark" />
+    <result column="xfu_ticket_sold" jdbcType="INTEGER" property="xfuTicketSold" />
+    <result column="xfu_ticket_status" jdbcType="BIT" property="xfuTicketStatus" />
+  </resultMap>
+  
+  <select id="selectOKByActivityId" resultMap="BaseResultMap" parameterType="Long">
+  	select * from xfu_activity_ticket where xfu_activity_id = #{xfuActivityId}
+  	and xfu_ticket_status=true order by xfu_ticket_id ASC
+  </select>
+  <select id="selectAllByActivityId" resultMap="BaseResultMap" parameterType="Long">
+  	select * from xfu_activity_ticket where xfu_activity_id = #{xfuActivityId} order by xfu_ticket_id ASC
+  	
+  </select>
+  
+  <select id ="selectTicketForAsso" resultMap="BaseResultMap" parameterType="Long">
+  	select * from xfu_activity_ticket where xfu_ticket_id = #{xfuTicketId}
+  </select>
+  
+  
+</mapper>

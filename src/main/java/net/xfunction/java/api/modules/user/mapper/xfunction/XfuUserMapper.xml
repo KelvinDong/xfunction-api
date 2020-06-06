@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.xfunction.java.api.modules.user.mapper.xfunction.XfuUserMapper">
+  <resultMap id="BaseResultMap" type="net.xfunction.java.api.modules.user.model.xfunction.XfuUser">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="xfu_user_id" jdbcType="BIGINT" property="xfuUserId" />
+    <result column="xfu_user_name" jdbcType="VARCHAR" property="xfuUserName" />
+    <result column="xfu_user_avatar" jdbcType="VARCHAR" property="xfuUserAvatar" />
+    <result column="xfu_user_mobile" jdbcType="VARCHAR" property="xfuUserMobile" />
+    <result column="xfu_user_mail" jdbcType="VARCHAR" property="xfuUserMail" />
+    <result column="xfu_user_auth" jdbcType="VARCHAR" property="xfuUserAuth" />
+    <result column="xfu_user_auth_salt" jdbcType="VARCHAR" property="xfuUserAuthSalt" />
+    <result column="xfu_user_blocked" jdbcType="BIT" property="xfuUserBlocked" />
+    <result column="xfu_user_create_date" jdbcType="TIMESTAMP" property="xfuUserCreateDate" />
+    <result column="xfu_user_update_date" jdbcType="TIMESTAMP" property="xfuUserUpdateDate" />
+    <result column="xfu_user_login_date" jdbcType="TIMESTAMP" property="xfuUserLoginDate" />
+    <result column="xfu_real_name" jdbcType="VARCHAR" property="xfuRealName" />
+    <result column="xfu_real_sex" jdbcType="INTEGER" property="xfuRealSex" />
+    <result column="xfu_real_birth" jdbcType="TIMESTAMP" property="xfuRealBirth" />
+    <result column="xfu_real_position" jdbcType="VARCHAR" property="xfuRealPosition" />
+    <result column="xfu_real_orga" jdbcType="VARCHAR" property="xfuRealOrga" />
+    <result column="xfu_real_mobile" jdbcType="VARCHAR" property="xfuRealMobile" />
+    <result column="xfu_real_email" jdbcType="VARCHAR" property="xfuRealEmail" />
+    <result column="xfu_tool_settings" jdbcType="LONGVARCHAR" property="xfuToolSettings" />
+  </resultMap>
+   
+  <!-- for enty association -->
+  <select id="selectForUserAvatar" resultType="String" parameterType="Long">
+    select xfu_user_avatar from xfu_user where xfu_user_id = #{xfuUserId}
+  </select>
+  
+  <select id="selectForUser" resultMap="BaseResultMap" parameterType="Long">
+    select * from xfu_user where xfu_user_id = #{xfuUserId}
+  </select>
+  
+</mapper>

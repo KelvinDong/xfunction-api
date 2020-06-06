@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.xfunction.java.api.modules.activity.mapper.xfunction.XfuActivitySponsorMapper">
+  <resultMap id="BaseResultMap" type="net.xfunction.java.api.modules.activity.model.xfunction.XfuActivitySponsor">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="xfu_user_id" jdbcType="BIGINT" property="xfuUserId" />
+    <result column="xfu_sponsor_name" jdbcType="VARCHAR" property="xfuSponsorName" />
+    <result column="xfu_sponsor_logo" jdbcType="VARCHAR" property="xfuSponsorLogo" />
+    <result column="xfu_sponsor_intro" jdbcType="VARCHAR" property="xfuSponsorIntro" />
+    <result column="xfu_sponsor_create" jdbcType="TIMESTAMP" property="xfuSponsorCreate" />
+    <result column="xfu_sponsor_update" jdbcType="TIMESTAMP" property="xfuSponsorUpdate" />
+  </resultMap>
+  
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="Long">
+  	select * from xfu_activity_sponsor where xfu_user_id = #{xfuUserId}
+  </select>
+  
+  <select id="selectByFavi" resultMap="BaseResultMap" parameterType="Long">
+  
+  	select b.*
+  	from xfu_activity_favi a left join xfu_activity_sponsor b
+  	on a.xfu_sponsor_id = b.xfu_user_id
+  	where a.xfu_user_id = #{userId} and a.xfu_favi_status=1
+  
+  </select>
+  
+</mapper>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.xfunction.java.api.modules.questionnaire.mapper.xfunction.XfuQuestionnaireFormMapper">
+  <resultMap id="BaseResultMap" type="net.xfunction.java.api.modules.questionnaire.model.xfunction.XfuQuestionnaireForm">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="xfu_questionnaire_id" jdbcType="BIGINT" property="xfuQuestionnaireId" />
+    <result column="xfu_user_id" jdbcType="BIGINT" property="xfuUserId" />
+    <result column="xfu_questionnaire_type" jdbcType="INTEGER" property="xfuQuestionnaireType" />
+    <result column="xfu_questionnaire_name" jdbcType="VARCHAR" property="xfuQuestionnaireName" />
+    <result column="xfu_questionnaire_create" jdbcType="TIMESTAMP" property="xfuQuestionnaireCreate" />
+    <result column="xfu_questionnaire_update" jdbcType="TIMESTAMP" property="xfuQuestionnaireUpdate" />
+    <result column="xfu_questionnaire_pre" jdbcType="VARCHAR" property="xfuQuestionnairePre" />
+    <result column="xfu_questionnaire_after" jdbcType="VARCHAR" property="xfuQuestionnaireAfter" />
+    <result column="xfu_questionnaire_count" jdbcType="INTEGER" property="xfuQuestionnaireCount" />
+    <result column="xfu_questionnaire_expired" jdbcType="TIMESTAMP" property="xfuQuestionnaireExpired" />
+    <result column="xfu_questionnaire_pic" jdbcType="VARCHAR" property="xfuQuestionnairePic" />
+    <result column="xfu_questionnaire_json" jdbcType="LONGVARCHAR" property="xfuQuestionnaireJson" />
+  </resultMap>
+</mapper>

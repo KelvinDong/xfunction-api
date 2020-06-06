@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.xfunction.java.api.modules.activity.mapper.xfunction.XfuUploadImgMapper">
+  <resultMap id="BaseResultMap" type="net.xfunction.java.api.modules.activity.model.xfunction.XfuUploadImg">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="xfu_upload_id" jdbcType="BIGINT" property="xfuUploadId" />
+    <result column="xfu_upload_src" jdbcType="VARCHAR" property="xfuUploadSrc" />
+    <result column="xfu_upload_fun_type" jdbcType="INTEGER" property="xfuUploadFunType" />
+    <result column="xfu_upload_fun_id" jdbcType="BIGINT" property="xfuUploadFunId" />
+    <result column="xfu_upload_used" jdbcType="INTEGER" property="xfuUploadUsed" />
+    <result column="xfu_del_status" jdbcType="BIT" property="xfuDelStatus" />
+    <result column="xfu_create" jdbcType="TIMESTAMP" property="xfuCreate" />
+  </resultMap>
+</mapper>

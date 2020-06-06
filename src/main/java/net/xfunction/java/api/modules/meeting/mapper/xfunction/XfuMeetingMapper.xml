@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.xfunction.java.api.modules.meeting.mapper.xfunction.XfuMeetingMapper">
+  <resultMap id="BaseResultMap" type="net.xfunction.java.api.modules.meeting.model.xfunction.XfuMeeting">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="xfu_channel_id" jdbcType="BIGINT" property="xfuChannelId" />
+    <result column="xfu_channel_name" jdbcType="VARCHAR" property="xfuChannelName" />
+    <result column="xfu_channel_create" jdbcType="TIMESTAMP" property="xfuChannelCreate" />
+    <result column="xfu_channel_status" jdbcType="BIT" property="xfuChannelStatus" />
+    <result column="xfu_channel_code" jdbcType="VARCHAR" property="xfuChannelCode" />
+  </resultMap>
+</mapper>

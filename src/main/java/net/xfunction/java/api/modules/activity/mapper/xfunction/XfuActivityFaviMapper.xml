@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.xfunction.java.api.modules.activity.mapper.xfunction.XfuActivityFaviMapper">
+  <resultMap id="BaseResultMap" type="net.xfunction.java.api.modules.activity.model.xfunction.XfuActivityFavi">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="xfu_favi_id" jdbcType="BIGINT" property="xfuFaviId" />
+    <result column="xfu_user_id" jdbcType="BIGINT" property="xfuUserId" />
+    <result column="xfu_sponsor_id" jdbcType="BIGINT" property="xfuSponsorId" />
+    <result column="xfu_favi_status" jdbcType="BIT" property="xfuFaviStatus" />
+    <result column="xfu_favi_create" jdbcType="TIMESTAMP" property="xfuFaviCreate" />
+    <result column="xfu_favi_update" jdbcType="TIMESTAMP" property="xfuFaviUpdate" />
+  </resultMap>
+</mapper>

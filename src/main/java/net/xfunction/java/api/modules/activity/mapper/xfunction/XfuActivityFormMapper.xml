@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.xfunction.java.api.modules.activity.mapper.xfunction.XfuActivityFormMapper">
+  <resultMap id="BaseResultMap" type="net.xfunction.java.api.modules.activity.model.xfunction.XfuActivityForm">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="xfu_form_id" jdbcType="BIGINT" property="xfuFormId" />
+    <result column="xfu_user_id" jdbcType="BIGINT" property="xfuUserId" />
+    <result column="xfu_form_name" jdbcType="VARCHAR" property="xfuFormName" />
+    <result column="xfu_form_create" jdbcType="TIMESTAMP" property="xfuFormCreate" />
+    <result column="xfu_form_update" jdbcType="TIMESTAMP" property="xfuFormUpdate" />
+    <result column="xfu_form_json" jdbcType="LONGVARCHAR" property="xfuFormJson" />
+  </resultMap>
+  
+  <select id="selectByFormId" resultMap="BaseResultMap" parameterType="Long">
+  	select * from xfu_activity_form where xfu_form_id = #{xfuFormId}
+  </select>
+</mapper>

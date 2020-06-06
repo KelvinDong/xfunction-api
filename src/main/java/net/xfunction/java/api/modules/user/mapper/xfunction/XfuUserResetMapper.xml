@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.xfunction.java.api.modules.user.mapper.xfunction.XfuUserResetMapper">
+  <resultMap id="BaseResultMap" type="net.xfunction.java.api.modules.user.model.xfunction.XfuUserReset">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="xfu_reset_id" jdbcType="BIGINT" property="xfuResetId" />
+    <result column="xfu_user_id" jdbcType="BIGINT" property="xfuUserId" />
+    <result column="xfu_user_mail" jdbcType="VARCHAR" property="xfuUserMail" />
+    <result column="xfu_reset_token" jdbcType="VARCHAR" property="xfuResetToken" />
+    <result column="xfu_reset_expired" jdbcType="TIMESTAMP" property="xfuResetExpired" />
+    <result column="xfu_reset_has" jdbcType="BIT" property="xfuResetHas" />
+    <result column="xfu_reset_times" jdbcType="INTEGER" property="xfuResetTimes" />
+    <result column="xfu_create_date" jdbcType="TIMESTAMP" property="xfuCreateDate" />
+    <result column="xfu_update_date" jdbcType="TIMESTAMP" property="xfuUpdateDate" />
+  </resultMap>
+</mapper>

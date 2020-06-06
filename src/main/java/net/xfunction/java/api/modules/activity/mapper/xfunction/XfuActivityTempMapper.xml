@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.xfunction.java.api.modules.activity.mapper.xfunction.XfuActivityTempMapper">
+  <resultMap id="BaseResultMap" type="net.xfunction.java.api.modules.activity.model.xfunction.XfuActivityTemp">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="xfu_activity_id" jdbcType="BIGINT" property="xfuActivityId" />
+    <result column="xfu_user_id" jdbcType="BIGINT" property="xfuUserId" />
+    <result column="xfu_activity_title" jdbcType="VARCHAR" property="xfuActivityTitle" />
+    <result column="xfu_activity_pic" jdbcType="VARCHAR" property="xfuActivityPic" />
+    <result column="xfu_activity_start" jdbcType="TIMESTAMP" property="xfuActivityStart" />
+    <result column="xfu_activity_end" jdbcType="TIMESTAMP" property="xfuActivityEnd" />
+    <result column="xfu_entry_start" jdbcType="TIMESTAMP" property="xfuEntryStart" />
+    <result column="xfu_entry_end" jdbcType="TIMESTAMP" property="xfuEntryEnd" />
+    <result column="xfu_form_id" jdbcType="BIGINT" property="xfuFormId" />
+    <result column="xfu_activity_area" jdbcType="VARCHAR" property="xfuActivityArea" />
+    <result column="xfu_activity_address" jdbcType="VARCHAR" property="xfuActivityAddress" />
+    <result column="xfu_activity_create" jdbcType="TIMESTAMP" property="xfuActivityCreate" />
+    <result column="xfu_activity_update" jdbcType="TIMESTAMP" property="xfuActivityUpdate" />
+    <result column="xfu_activity_tags" jdbcType="VARCHAR" property="xfuActivityTags" />
+    <result column="xfu_activity_content" jdbcType="LONGVARCHAR" property="xfuActivityContent" />
+  </resultMap>
+  
+  <select id="selectActivityTempForAsso" resultMap="BaseResultMap" parameterType="Long">
+  	 select * from xfu_activity_temp where xfu_activity_id = #{xfuActivityId}
+  </select>
+  
+</mapper>

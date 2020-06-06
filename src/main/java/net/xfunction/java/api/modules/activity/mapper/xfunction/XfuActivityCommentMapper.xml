@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.xfunction.java.api.modules.activity.mapper.xfunction.XfuActivityCommentMapper">
+  <resultMap id="BaseResultMap" type="net.xfunction.java.api.modules.activity.model.xfunction.XfuActivityComment">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="xfu_comment_id" jdbcType="BIGINT" property="xfuCommentId" />
+    <result column="xfu_user_id" jdbcType="BIGINT" property="xfuUserId" />
+    <result column="xfu_activity_id" jdbcType="BIGINT" property="xfuActivityId" />
+    <result column="xfu_comment_content" jdbcType="VARCHAR" property="xfuCommentContent" />
+    <result column="xfu_comment_del" jdbcType="BIT" property="xfuCommentDel" />
+    <result column="xfu_comment_create" jdbcType="TIMESTAMP" property="xfuCommentCreate" />
+    <result column="xfu_comment_reply" jdbcType="VARCHAR" property="xfuCommentReply" />
+    <result column="xfu_comment_update" jdbcType="TIMESTAMP" property="xfuCommentUpdate" />
+  </resultMap>
+  
+  <resultMap id="extendResultMap" type="net.xfunction.java.api.modules.activity.model.xfunction.XfuActivityComment" >
+  	<association property="activity" column="xfu_activity_id" select="net.xfunction.java.api.modules.activity.mapper.xfunction.XfuActivityMapper.selectActivityForAsso">
+    </association> 
+  </resultMap>
+  
+  <resultMap id="publicResultMap" type="net.xfunction.java.api.modules.activity.model.xfunction.XfuActivityComment" >
+  	<association property="activity" column="xfu_activity_id" select="net.xfunction.java.api.modules.activity.mapper.xfunction.XfuActivityMapper.selectActivityForAsso">
+    </association> 
+    <association property="xfuUserAvatar" column="xfu_user_id" select="net.xfunction.java.api.modules.user.mapper.xfunction.XfuUserMapper.selectForUserAvatar">
+    </association>
+  </resultMap>
+  
+  <select id="selectMyComments" resultMap="extendResultMap"  parameterType="Long">
+  	select * from xfu_activity_comment 
+  	where xfu_user_id = #{userId} 
+  	order by xfu_comment_id desc
+  </select>
+  
+  <select id="selectActivityComments" resultMap="publicResultMap" parameterType="net.xfunction.java.api.modules.activity.pojo.activityComment.ActivityCommentQuery">
+  	select a.* 
+  	from xfu_activity_comment a left join xfu_activity b 
+  	on a.xfu_activity_id = b.xfu_activity_id
+  	where b.xfu_user_id = #{userId} 
+  	<if test="commentId!=null">
+  		and a.xfu_comment_id = #{commentId}
+  	</if>
+  	order by a.xfu_comment_id desc
+  </select>
+  
+  <select id="selectPublicComments" resultMap="publicResultMap" parameterType="Long">
+  	select * from xfu_activity_comment 
+  	where xfu_activity_id = #{activityId} and xfu_comment_del=0
+  	order by xfu_comment_id desc
+  </select>
+</mapper>

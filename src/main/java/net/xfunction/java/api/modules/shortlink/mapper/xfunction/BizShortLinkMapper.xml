@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.xfunction.java.api.modules.shortlink.mapper.xfunction.BizShortLinkMapper">
+  <resultMap id="BaseResultMap" type="net.xfunction.java.api.modules.shortlink.model.xfunction.BizShortLink">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="biz_link_id" jdbcType="BIGINT" property="bizLinkId" />
+    <result column="biz_link_url" jdbcType="VARCHAR" property="bizLinkUrl" />
+    <result column="biz_link_create_date" jdbcType="TIMESTAMP" property="bizLinkCreateDate" />
+    <result column="biz_link_visit_date" jdbcType="TIMESTAMP" property="bizLinkVisitDate" />
+    <result column="biz_link_visit_sum" jdbcType="BIGINT" property="bizLinkVisitSum" />
+  </resultMap>
+</mapper>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.xfunction.java.api.modules.questionnaire.mapper.xfunction.XfuQuestionnaireEntryMapper">
+  <resultMap id="BaseResultMap" type="net.xfunction.java.api.modules.questionnaire.model.xfunction.XfuQuestionnaireEntry">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="xfu_entry_id" jdbcType="BIGINT" property="xfuEntryId" />
+    <result column="xfu_questionnaire_id" jdbcType="BIGINT" property="xfuQuestionnaireId" />
+    <result column="xfu_user_id" jdbcType="BIGINT" property="xfuUserId" />
+    <result column="xfu_entry_create" jdbcType="TIMESTAMP" property="xfuEntryCreate" />
+    <result column="xfu_entry_content" jdbcType="LONGVARCHAR" property="xfuEntryContent" />
+  </resultMap>
+</mapper>
