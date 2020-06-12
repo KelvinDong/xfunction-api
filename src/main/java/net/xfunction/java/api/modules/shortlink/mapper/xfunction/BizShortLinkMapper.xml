@@ -7,8 +7,10 @@
     -->
     <id column="biz_link_id" jdbcType="BIGINT" property="bizLinkId" />
     <result column="biz_link_url" jdbcType="VARCHAR" property="bizLinkUrl" />
+    <result column="biz_link_remark" jdbcType="VARCHAR" property="bizLinkRemark" />
     <result column="biz_link_create_date" jdbcType="TIMESTAMP" property="bizLinkCreateDate" />
     <result column="biz_link_visit_date" jdbcType="TIMESTAMP" property="bizLinkVisitDate" />
     <result column="biz_link_visit_sum" jdbcType="BIGINT" property="bizLinkVisitSum" />
+    <result column="xfu_user_id" jdbcType="BIGINT" property="xfuUserId" />
   </resultMap>
 </mapper>

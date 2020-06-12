@@ -52,7 +52,7 @@ public class TokenService {
 	/**
 	 * 
 	 * @param token
-	 * @return null, -1 , Long
+	 * @return null , Long
 	 */
     public Long getUserIdFromToken(String token) {
         if (token == null) {
@@ -63,7 +63,7 @@ public class TokenService {
         try {
             userId = JWT.decode(token).getClaim("userId").asLong();
         } catch (JWTDecodeException j) {
-            return -1l;
+            return null;
         }
         return userId;
     }

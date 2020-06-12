@@ -115,6 +115,7 @@ public class CleanService {
 			for (int i = 0; i < list.size(); i++) {  
 		        sb.append(list.get(i)).append(",");  
 		    } 			
+			log.info(jSONObj.toJSONString());
 			if(list.size()>0) {
 				request.setAction("RemoveTerminals");
 				request.putQueryParameter("TerminalIds."+list.size(), sb.toString().substring(0, sb.toString().length() - 1));	

@@ -1,6 +1,8 @@
 package net.xfunction.java.api.config;
 
 import com.aliyun.openservices.ons.api.PropertyKeyConst;
+import com.aliyun.openservices.ons.api.PropertyValueConst;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
@@ -25,6 +27,7 @@ public class RocketMqConfig {
         properties.setProperty(PropertyKeyConst.AccessKey, this.accessKey);
         properties.setProperty(PropertyKeyConst.SecretKey, this.secretKey);
         properties.setProperty(PropertyKeyConst.NAMESRV_ADDR, this.nameSrvAddr);
+        properties.put(PropertyKeyConst.MessageModel, PropertyValueConst.BROADCASTING); 
         return properties;
     }
 

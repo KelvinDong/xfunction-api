@@ -17,9 +17,13 @@ import net.xfunction.java.api.core.utils.HttpUtil;
 import net.xfunction.java.api.core.utils.RedisService;
 import net.xfunction.java.api.core.utils.Result;
 import net.xfunction.java.api.core.utils.ResultCodeEnum;
+import net.xfunction.java.api.core.annotation.UserLoginToken;
 import net.xfunction.java.api.core.utils.BaseUtils;
+import net.xfunction.java.api.modules.activity.pojo.myActivityList.MyActivityListQuery;
 import net.xfunction.java.api.modules.shortlink.model.xfunction.BizShortLink;
+import net.xfunction.java.api.modules.shortlink.pojo.ListQuery;
 import net.xfunction.java.api.modules.shortlink.service.ShortLinkService;
+import net.xfunction.java.api.modules.user.service.TokenService;
 
 @RestController
 @Slf4j
@@ -32,7 +36,8 @@ public class ShortLinkController {
 	
 	注解@RequestBody接收的参数是来自requestBody中，即请求体		json
 	 */
-	
+	@Resource
+	private TokenService tokenService;
 	
 	@Resource 
 	private ShortLinkService shortLinkService;
@@ -63,6 +68,10 @@ public class ShortLinkController {
 		
 		log.debug(bizShortLink.toString());
 		
+		Long userIdLong = tokenService.getUserIdFromRequest(httpServletRequest);
+		
+		bizShortLink.setXfuUserId(userIdLong);
+		
 		Integer defaultCacheValueInteger=1;
 		String fromIpString = HttpUtil.getIpAddr(httpServletRequest);
 		//Forbid  more request
@@ -78,7 +87,7 @@ public class ShortLinkController {
 			//go ahead
 		}
 		
-		BizShortLink returnBizShortLink = shortLinkService.getBizShortLink(bizShortLink.getBizLinkUrl());
+		BizShortLink returnBizShortLink = shortLinkService.getBizShortLink(bizShortLink.getBizLinkUrl(),userIdLong);
 		if(BaseUtils.isNotNull(returnBizShortLink)) {
 			returnBizShortLink.setBizLinkId64(Convert64Util.encode(returnBizShortLink.getBizLinkId()));			
 			return Result.success(returnBizShortLink);
@@ -86,6 +95,36 @@ public class ShortLinkController {
 			return Result.failure(ResultCodeEnum.URL_NOT_REACHED);
 		}		
 		
+	}
+	
+	@PostMapping("/replace")
+	@UserLoginToken
+	public Result replaceUrl(@RequestBody BizShortLink bizShortLink , HttpServletRequest httpServletRequest){
+		if (BaseUtils.isEmpty(bizShortLink.getBizLinkUrl()))
+			return Result.failure(ResultCodeEnum.PARAMS_MISS);
+		Long userIdLong = tokenService.getUserIdFromRequest(httpServletRequest);
+		return shortLinkService.replaceShortLink(bizShortLink, userIdLong);
+	}
+	
+	@PostMapping("/remark")
+	@UserLoginToken
+	public Result remark(@RequestBody BizShortLink bizShortLink , HttpServletRequest httpServletRequest){
+		if (BaseUtils.isEmpty(bizShortLink.getBizLinkRemark()))
+			return Result.failure(ResultCodeEnum.PARAMS_MISS);
+		Long userIdLong = tokenService.getUserIdFromRequest(httpServletRequest);
+		shortLinkService.updateShortLinkRemark(bizShortLink, userIdLong);
+		return Result.success();
+	}
+	
+	@PostMapping("/list")
+	@UserLoginToken
+	public Result listUrls(@RequestBody ListQuery query, HttpServletRequest httpServletRequest) {
+		Long userIdLong = tokenService.getUserIdFromRequest(httpServletRequest);
+//		没有必要写，因为有@UserLoginToken
+//		if (BaseUtils.isNull(userIdLong))
+//			return Result.failure(ResultCodeEnum.PARAMS_MISS);
+		query.setUserId(userIdLong);
+		return Result.success(shortLinkService.getMyUrls(query));
 	}
 	
 

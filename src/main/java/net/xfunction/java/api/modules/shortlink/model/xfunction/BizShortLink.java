@@ -1,4 +1,4 @@
-package net.xfunction.java.api.modules.shortlink.model.xfunction;
+	package net.xfunction.java.api.modules.shortlink.model.xfunction;
 
 import java.util.Date;
 import javax.persistence.*;
@@ -20,6 +20,9 @@ public class BizShortLink {
 
     @Column(name = "biz_link_url")
     private String bizLinkUrl;
+    
+    @Column(name = "biz_link_remark")
+    private String bizLinkRemark;
 
     @Column(name = "biz_link_create_date")
     private Date bizLinkCreateDate;
@@ -29,6 +32,9 @@ public class BizShortLink {
 
     @Column(name = "biz_link_visit_sum")
     private Long bizLinkVisitSum;
+    
+    @Column(name = "xfu_user_id")
+    private Long xfuUserId;
     
     @Transient
     private String bizLinkId64;

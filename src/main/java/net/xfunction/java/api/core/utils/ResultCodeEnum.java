@@ -34,7 +34,8 @@ public enum ResultCodeEnum {
     PARAMS_MISS("4300", "参数缺失"),
     PARAM_ERROR("4301", "参数错误"),    
     MORE_REQUEST("4302","请求过多"),
-    URL_NOT_REACHED("4303","URL不能访问");
+    URL_NOT_REACHED("4303","URL不能访问"),
+	URL_REPEATED("4304","URL已经存在");
 		
 	
     
