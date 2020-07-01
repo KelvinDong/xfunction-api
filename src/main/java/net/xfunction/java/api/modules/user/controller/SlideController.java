@@ -47,7 +47,6 @@ public class SlideController {
 		
 		log.info("get--- get's session's id" + session.getId());
 		
-		//读取图库目录
         File imgCatalog = new File(slideImages);
         File[] files = imgCatalog.listFiles();
  
@@ -59,15 +58,16 @@ public class SlideController {
         log.info(targetFile.toString());
         log.info(tempImgFile.toString());
  
-        //根据模板裁剪图片
-        Slide result = PuzzleUtils.pictureTemplatesCut(tempImgFile,targetFile);        
-        //sessionId 为key，value滑动距离X轴，缓存120秒
-        redisService.set(session.getId(),result.getXWidth(),Duration.ofSeconds(300).getSeconds());	
-        result.setXWidth(0);
-		return Result.success(result);
+        Slide slide = PuzzleUtils.pictureTemplatesCut(tempImgFile,targetFile);        
+
+        redisService.set(session.getId(),slide.getXWidth(),Duration.ofSeconds(300).getSeconds());	
+        slide.setXWidth(0);
+		return Result.success(slide);
 	}
+	
 	/**
-	   *     首页验证
+	 * First validation, for initial feedback on the validity of the jigsaw puzzle, so there is no deletion of the cached data.
+	   When the actual business data is submitted, make another judgment.
 	 * @param slideQuery
 	 * @param httpServletRequest
 	 * @return
@@ -84,12 +84,11 @@ public class SlideController {
 			redisService.del(session.getId());
 			return Result.failure(ResultCodeEnum.PARAMS_MISS);
 		}else if(Math.abs(xWidth-slideQuery.getMove())<=2) {
-			// redisService.del(session.getId()); 此处不能删除，待提交表单数据时还需要再次验证
-			// 这里仅简单判断，二次验证时再完整处理
+			// Do not delete cached data.
 			return Result.success();
 		}else {
 			redisService.del(session.getId());
-			return Result.failure(ResultCodeEnum.FAILD,"验证失败，请再试");
+			return Result.failure(ResultCodeEnum.FAILD,"Verification failed. Please try again");
 		}				
 	}
 
